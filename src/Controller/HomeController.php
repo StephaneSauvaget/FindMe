@@ -9,6 +9,8 @@
 
 namespace App\Controller;
 
+use App\Model\ApiManager;
+
 class HomeController extends AbstractController
 {
     /**
@@ -21,6 +23,8 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        $apiManager = new ApiManager();
+        $pictures = $apiManager->addApi();
+        return $this->twig->render('Home/index.html.twig', ['pictures' => $pictures]);
     }
 }
