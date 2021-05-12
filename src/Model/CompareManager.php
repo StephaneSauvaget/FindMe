@@ -36,7 +36,7 @@ class CompareManager
         }
     }
 
-    private function resizeImage($source)
+    private function resizeImage($image, $source)
     {
         /*resizes the image to a 8x8 squere and returns as image resource*/
         $mime = $this->mimeType($source);
@@ -86,8 +86,8 @@ class CompareManager
             return false;
         }
 
-        $image1 = $this->resizeImage($image1);
-        $image2 = $this->resizeImage($image2);
+        $image1 = $this->resizeImage($image1, $picture1);
+        $image2 = $this->resizeImage($image2, $picture2);
 
         imagefilter($image1, IMG_FILTER_GRAYSCALE);
         imagefilter($image2, IMG_FILTER_GRAYSCALE);
