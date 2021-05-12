@@ -9,6 +9,8 @@ For this one, just a simple example where users can choose one of their database
 
 ## Steps
 
+0. To make image comparisons, make sure you install the GD library first: 
+`sudo apt install php<version>-gd`
 1. Clone the repo from Github.
 2. Run `composer install`.
 3. Create *config/db.php* from *config/db.php.dist* file and add your DB parameters. Don't delete the *.dist* file, it must be kept.
