@@ -48,7 +48,7 @@ class HomeController extends AbstractController
             /****** On vérifie si l'image existe et si le poids est autorisé en octets *************/
             if (file_exists($_FILES['image']['tmp_name']) && filesize($_FILES['image']['tmp_name']) > $maxFileSize) {
                 $errors[] = "Votre fichier doit faire moins de 1,5MB !";
-            }      
+            }
         }
         if ($errors) {
             foreach ($errors as $error) {
