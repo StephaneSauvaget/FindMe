@@ -7,8 +7,8 @@ class CompareManager
     private function mimeType($image)
     {
         /*returns array with mime type and if its jpg or png. Returns false if it isn't jpg or png*/
-        $mime = getimagesize($image);
-        $return = array($mime[0],$mime[1]);
+        $mime = \getimagesize($image);
+        $return = array($mime[0],$mime[1]); // $return = [$mime,$mime];
 
         switch ($mime['mime']) {
             case 'image/jpeg':
@@ -28,9 +28,9 @@ class CompareManager
         $mime = $this->mimeType($image);
 
         if ($mime[2] == 'jpg') {
-            return imagecreatefromjpeg($image);
+            return \imagecreatefromjpeg($image);
         } elseif ($mime[2] == 'png') {
-            return imagecreatefrompng($image);
+            return \imagecreatefrompng($image);
         } else {
             return false;
         }
@@ -41,11 +41,11 @@ class CompareManager
         /*resizes the image to a 8x8 squere and returns as image resource*/
         $mime = $this->mimeType($source);
 
-        $trueColor = imagecreatetruecolor(8, 8);
+        $trueColor = \imagecreatetruecolor(8, 8);
 
-        $source = $this->createImage($image);
+        $source = $this->createImage($source);
 
-        imagecopyresized($trueColor, $source, 0, 0, 0, 0, 8, 8, $mime[0], $mime[1]);
+        \imagecopyresized($trueColor, $source, 0, 0, 0, 0, 8, 8, $mime[0], $mime[1]);
 
         return $trueColor;
     }
@@ -57,7 +57,7 @@ class CompareManager
         $colorSum = 0;
         for ($color = 0; $color < 8; $color++) {
             for ($pixel = 0; $pixel < 8; $pixel++) {
-                $rgb = imagecolorat($image, $color, $pixel);
+                $rgb = \imagecolorat($image, $color, $pixel);
                 $colorList[] = $rgb & 0xFF;
                 $colorSum += $rgb & 0xFF;
             }
@@ -89,8 +89,8 @@ class CompareManager
         $image1 = $this->resizeImage($image1, $picture1);
         $image2 = $this->resizeImage($image2, $picture2);
 
-        imagefilter($image1, IMG_FILTER_GRAYSCALE);
-        imagefilter($image2, IMG_FILTER_GRAYSCALE);
+        \imagefilter($image1, IMG_FILTER_GRAYSCALE);
+        \imagefilter($image2, IMG_FILTER_GRAYSCALE);
 
         $colorMean1 = $this->colorMeanValue($image1);
         $colorMean2 = $this->colorMeanValue($image2);
